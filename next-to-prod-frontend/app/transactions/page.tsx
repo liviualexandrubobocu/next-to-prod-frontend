@@ -1,6 +1,36 @@
 import Head from 'next/head';
+// import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
-export default function Transactions() {
+type Transaction = {
+  id: string;
+  amount: string;
+  date: string;
+}
+
+async function getData() {
+  const res = await fetch('http://localhost:5000/transactions');
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+ 
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+ 
+  return res.json()
+}
+
+// export const getServerSideProps = (async () => {
+//   const res = await fetch('https://localhost:5000/transactions');
+//   const transactions: Transaction[] = await res.json();
+
+//   return { props: { transactions }};
+// }) satisfies GetServerSidePropsType<{ transactions: Transaction[]}>;
+
+export default async function Transactions() {
+
+  const transactions = await getData();
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <Head>
@@ -23,13 +53,13 @@ export default function Transactions() {
                 </tr>
             </thead>
             <tbody>
-                {/* Sample transactions - replace with actual data */}
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">1</th>
-                <td className="py-4 px-6">$100.00</td>
-                <td className="py-4 px-6">2024-04-01</td>
-                </tr>
-                {/* Repeat for more transactions */}
+                {transactions.map((transaction: Transaction) => (
+                  <tr key={transaction.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{transaction.id}</th>
+                    <td className="py-4 px-6">{transaction.amount}</td>
+                    <td className="py-4 px-6">{transaction.date}</td>
+                  </tr>
+                ))}
             </tbody>
             </table>
         </div>
