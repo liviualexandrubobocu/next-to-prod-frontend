@@ -1,5 +1,6 @@
 import Head from 'next/head';
 // import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { getDictionary } from '../dictionaries';
 
 type Transaction = {
   id: string;
@@ -27,19 +28,19 @@ async function getData() {
 //   return { props: { transactions }};
 // }) satisfies GetServerSidePropsType<{ transactions: Transaction[]}>;
 
-export default async function Transactions() {
-
+export default async function Transactions({ params: { lang }}: {params: {lang: string}}) {
+  const dict = await getDictionary(lang)
   const transactions = await getData();
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <Head>
-        <title>Transaction Dashboard</title>
+        <title>{}</title>
       </Head>
 
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
         <h1 className="text-6xl font-bold">
-          Welcome to your <a className="text-blue-600">Transaction Dashboard!</a>
+          Welcome to your <a className="text-blue-600">{dict.transactions.title}!</a>
         </h1>
 
         <div className="mt-8">
