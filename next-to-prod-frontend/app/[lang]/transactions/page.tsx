@@ -1,3 +1,4 @@
+import PageTransition from '@/components/PageTransition/PageTransition';
 import Head from 'next/head';
 // import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { getDictionary } from '../dictionaries';

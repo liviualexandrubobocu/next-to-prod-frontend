@@ -1,15 +1,18 @@
 import Head from 'next/head';
+import { getDictionary } from '../dictionaries';
 
-export default function Users(){
+export default async function Users({ params: { lang }}: {params: {lang: string}}){
+  const dict = await getDictionary(lang);
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
           <Head>
-            <title>Users Dashboard</title>
+            <title>{dict.users.title}</title>
           </Head>
     
           <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
             <h1 className="text-6xl font-bold">
-              Welcome to your <a className="text-blue-600">Users Dashboard!</a>
+              Welcome to your <a className="text-blue-600">{dict.users.title}!</a>
             </h1>
     
             <div className="mt-8">

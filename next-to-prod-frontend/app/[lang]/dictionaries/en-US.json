@@ -1,5 +1,11 @@
 {
     "transactions": {
       "title": "Transactions Dashboard"
+    },
+    "payouts": {
+      "title": "Payouts Dashboard"
+    },
+    "users": {
+      "title": "Users Dashboard"
     }
 }
