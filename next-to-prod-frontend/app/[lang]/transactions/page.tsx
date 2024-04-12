@@ -1,4 +1,5 @@
 import PageTransition from '@/components/PageTransition/PageTransition';
+import Pagination from '@/components/Pagination/Pagination';
 import Head from 'next/head';
 // import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { getDictionary } from '../dictionaries';
@@ -36,7 +37,7 @@ export default async function Transactions({ params: { lang }}: {params: {lang: 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <Head>
-        <title>{}</title>
+        <title>{dict.transactions.title}</title>
       </Head>
 
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
@@ -64,6 +65,7 @@ export default async function Transactions({ params: { lang }}: {params: {lang: 
                 ))}
             </tbody>
             </table>
+            <Pagination elements={transactions}/>
         </div>
         </div>
       </main>
